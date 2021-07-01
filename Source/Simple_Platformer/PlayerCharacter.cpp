@@ -45,10 +45,9 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 void APlayerCharacter::SpringArmSetup(USpringArmComponent* SpringArmComp) 
 {
 	SpringArmComp -> bEnableCameraLag = true;
-	SpringArmComp -> bInheritPtich = false;
+	SpringArmComp -> bInheritPitch = false;
 	SpringArmComp -> bInheritRoll = false;
 	SpringArmComp -> bInheritYaw = false;
 	SpringArmComp -> TargetArmLength = 600.0f;
-	SpringArmComp -> SetActorRotation(FRotator(0.0f, 0.0f, -90.0f));
 }
 
