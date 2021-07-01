@@ -37,4 +37,8 @@ private:
 		UCameraComponent* PlayerCamera;
 
 	void SpringArmSetup(USpringArmComponent* SpringArmComp);
+
+	void OnJumpStart();
+
+	void OnJumpEnd();
 };

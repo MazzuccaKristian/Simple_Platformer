@@ -40,6 +40,8 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	PlayerInputComponent -> BindAction("Jump", IE_Pressed, this, &APlayerCharacter::OnJumpStart);
+	PlayerInputComponent -> BindAction("Jump", IE_Released, this, &APlayerCharacter::OnJumpEnd);
 }
 
 void APlayerCharacter::SpringArmSetup(USpringArmComponent* SpringArmComp) 
@@ -49,5 +51,15 @@ void APlayerCharacter::SpringArmSetup(USpringArmComponent* SpringArmComp)
 	SpringArmComp -> bInheritRoll = false;
 	SpringArmComp -> bInheritYaw = false;
 	SpringArmComp -> TargetArmLength = 600.0f;
+}
+
+void APlayerCharacter::OnJumpStart() 
+{
+	UE_LOG(LogTemp, Warning, TEXT("JUMP STARTED"));
+}
+
+void APlayerCharacter::OnJumpEnd() 
+{
+	UE_LOG(LogTemp, Warning, TEXT("JUMP ENDED"));
 }
 
