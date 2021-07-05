@@ -40,6 +40,8 @@ private:
 
 	// Movement
 		void MoveForward(float AxisValue);
+
+		void MoveBackward(float AxisValue);
 		// void Jump();
 	//
 };
