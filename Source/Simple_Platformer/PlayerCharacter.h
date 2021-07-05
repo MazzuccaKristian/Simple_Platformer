@@ -38,7 +38,8 @@ private:
 
 	void SpringArmSetup(USpringArmComponent* SpringArmComp);
 
-	void OnJumpStart();
-
-	void OnJumpEnd();
+	// Movement
+		void MoveForward(float AxisValue);
+		// void Jump();
+	//
 };
