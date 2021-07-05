@@ -20,6 +20,8 @@ APlayerCharacter::APlayerCharacter()
 	//Camera component for the player
 	PlayerCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("PlayerCamera"));
 	PlayerCamera -> SetupAttachment(SpringArm);
+
+	IsJumping = false;
 }
 
 // Called when the game starts or when spawned
@@ -34,6 +36,10 @@ void APlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	if(IsJumping)
+	{
+		Jump();
+	}
 }
 
 // Called to bind functionality to input
@@ -43,10 +49,8 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 	PlayerInputComponent -> BindAxis("MoveForward", this, &APlayerCharacter::MoveForward);
 	PlayerInputComponent -> BindAxis("MoveBackward", this, &APlayerCharacter::MoveBackward);
-	// PlayerInputComponent -> BindAction("Jump", IE_Pressed, this, &APlayerCharacter::Jump);
-	// PlayerInputComponent -> BindAction("Jump", IE_Released, this, &APlayerCharacter::OnJumpEnd);
-	// PlayerInputComponent -> BindAxis("MoveRight", this, &APlayerCharacter::MoveRight);
-	// PlayerInputComponent -> BindAxis("MoveLeft", this, &APlayerCharacter::MoveLeft);
+	PlayerInputComponent -> BindAction("Jump", IE_Pressed, this, &APlayerCharacter::JumpInput);
+	PlayerInputComponent -> BindAction("Jump", IE_Released, this, &APlayerCharacter::JumpInput);
 }
 
 void APlayerCharacter::SpringArmSetup(USpringArmComponent* SpringArmComp) 
@@ -80,21 +84,16 @@ void APlayerCharacter::MoveBackward(float AxisValue)
 	}
 }
 
-// void APlayerCharacter::Jump() 
-// {
-	
-// }
-
-// void APlayerCharacter::OnJumpStart() 
-// {
-// 	UE_LOG(LogTemp, Warning, TEXT("JUMP STARTED"));
-
-// }
-
-// void APlayerCharacter::OnJumpEnd() 
-// {
-// 	UE_LOG(LogTemp, Warning, TEXT("JUMP ENDED"));
-// }
+void APlayerCharacter::JumpInput() 
+{
+	if(IsJumping)
+	{
+		IsJumping = false;
+	} else
+	{
+		IsJumping = true;
+	}
+}
 
 // void APlayerCharacter::MoveRight(float AxisValue) 
 // {

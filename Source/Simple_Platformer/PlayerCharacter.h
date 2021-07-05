@@ -42,6 +42,8 @@ private:
 		void MoveForward(float AxisValue);
 
 		void MoveBackward(float AxisValue);
-		// void Jump();
+		
+		void JumpInput();
+		bool IsJumping;
 	//
 };
