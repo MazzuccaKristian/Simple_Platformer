@@ -39,10 +39,13 @@ private:
 	void SpringArmSetup(USpringArmComponent* SpringArmComp);
 
 	// Movement
+		UFUNCTION()
 		void MoveForward(float AxisValue);
 
+		UFUNCTION()
 		void MoveBackward(float AxisValue);
 		
+		UFUNCTION()
 		void JumpInput();
 		bool IsJumping;
 	//
