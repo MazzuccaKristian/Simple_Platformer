@@ -38,15 +38,20 @@ private:
 
 	void SpringArmSetup(USpringArmComponent* SpringArmComp);
 
-	// Movement
-		UFUNCTION()
-		void MoveForward(float AxisValue);
+	UCapsuleComponent* TriggerCapsule;
 
-		UFUNCTION()
-		void MoveBackward(float AxisValue);
-		
-		UFUNCTION()
-		void JumpInput();
-		bool IsJumping;
+	// Movement
+		// Walk
+			UFUNCTION()
+			void MoveForward(float AxisValue);
+
+			UFUNCTION()
+			void MoveBackward(float AxisValue);
+		//
+		// Jump
+			UFUNCTION()
+			void JumpInput();
+			bool IsJumping;
+		//
 	//
 };

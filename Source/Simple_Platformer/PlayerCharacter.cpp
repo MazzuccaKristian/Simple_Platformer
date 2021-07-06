@@ -2,6 +2,7 @@
 
 
 #include "PlayerCharacter.h"
+#include "Components/CapsuleComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -20,6 +21,9 @@ APlayerCharacter::APlayerCharacter()
 	//Camera component for the player
 	PlayerCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("PlayerCamera"));
 	PlayerCamera -> SetupAttachment(SpringArm);
+
+	// Capsule component, used as trigger
+	
 
 	IsJumping = false;
 }
