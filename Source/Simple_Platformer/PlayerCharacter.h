@@ -42,6 +42,10 @@ private:
 
 	// Movement
 		// Walk
+
+			UPROPERTY(EditAnywhere)
+			bool Prova;
+			
 			UFUNCTION()
 			void MoveForward(float AxisValue);
 
@@ -51,6 +55,7 @@ private:
 		// Jump
 			UFUNCTION()
 			void JumpInput();
+
 			bool IsJumping;
 		//
 	//

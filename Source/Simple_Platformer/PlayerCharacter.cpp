@@ -22,8 +22,7 @@ APlayerCharacter::APlayerCharacter()
 	PlayerCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("PlayerCamera"));
 	PlayerCamera -> SetupAttachment(SpringArm);
 
-	// Capsule component, used as trigger
-	
+	Prova = true;	
 
 	IsJumping = false;
 }
@@ -40,6 +39,7 @@ void APlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	UE_LOG(LogTemp, Warning, TEXT("Prova: %b"), Prova);
 	if(IsJumping)
 	{
 		Jump();
