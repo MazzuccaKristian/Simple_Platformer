@@ -33,17 +33,28 @@ public:
 	void BeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult);
 
 private:
-	UPROPERTY(VisibleAnywhere)
-		USpringArmComponent* SpringArm;
 
-	UPROPERTY(VisibleAnywhere)
-		UCameraComponent* PlayerCamera;
+	// Character components
+		UPROPERTY(VisibleAnywhere)
+			USpringArmComponent* SpringArm;
 
-	void SpringArmSetup(USpringArmComponent* SpringArmComp);
+		UPROPERTY(VisibleAnywhere)
+			UCameraComponent* PlayerCamera;
 
-	UCapsuleComponent* TriggerCapsule;
+		void SpringArmSetup(USpringArmComponent* SpringArmComp);
+
+		UCapsuleComponent* TriggerCapsule;
+	//
 
 	int32 ItemCollection;
+
+	// Restart level function
+		// void OnRestart();
+		
+		// FTimerHandle RestartTimer;
+
+		// void LevelRestart();
+	//
 
 	// Movement
 		// Walk			

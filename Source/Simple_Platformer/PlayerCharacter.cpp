@@ -68,6 +68,7 @@ void APlayerCharacter::BeginOverlap(UPrimitiveComponent* OverlappedComponent, AA
 		OtherActor -> Destroy();
 		ItemCollection++;
 	} else if(OtherActor -> ActorHasTag("DeathZone")){
+		// OnRestart();
 		UGameplayStatics::OpenLevel(GetWorld(), FName(UGameplayStatics::GetCurrentLevelName(GetWorld())));
 	}
 }
@@ -114,16 +115,12 @@ void APlayerCharacter::JumpInput()
 	}
 }
 
-// void APlayerCharacter::MoveRight(float AxisValue) 
+// void APlayerCharacter::OnRestart() 
 // {
-// 	if((Controller != nullptr) && (AxisValue != 0.0f)){
-// 		const FRotator Rotation = Controller -> GetControlRotation();
-// 		const FRotator YawRotation(0, Rotation.Yaw, 0);
-// 		const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
-// 		AddMovementInput(Direction, AxisValue);
-// 	}
+// 	GetWorldTimerManager().SetTimer(RestartTimer, this, &APlayerCharacter::LevelRestart, 1.0f, true, 2.0f);
 // }
 
-//
+// void APlayerCharacter::LevelRestart() 
+// {
+// 	UGameplayStatics::OpenLevel(GetWorld(), FName(UGameplayStatics::GetCurrentLevelName(GetWorld())));
 // }
-
