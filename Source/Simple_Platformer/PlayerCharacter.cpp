@@ -67,7 +67,8 @@ void APlayerCharacter::BeginOverlap(UPrimitiveComponent* OverlappedComponent, AA
 	if(OtherActor -> ActorHasTag("Collectible")){
 		OtherActor -> Destroy();
 		ItemCollection++;
-		UE_LOG(LogTemp, Warning, TEXT("Collection: %i"), ItemCollection);
+	} else if(OtherActor -> ActorHasTag("DeathZone")){
+		UGameplayStatics::OpenLevel(GetWorld(), FName(UGameplayStatics::GetCurrentLevelName(GetWorld())));
 	}
 }
 
