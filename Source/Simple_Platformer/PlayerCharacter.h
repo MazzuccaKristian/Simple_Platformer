@@ -43,6 +43,8 @@ private:
 
 	UCapsuleComponent* TriggerCapsule;
 
+	int32 ItemCollection;
+
 	// Movement
 		// Walk			
 			UFUNCTION()

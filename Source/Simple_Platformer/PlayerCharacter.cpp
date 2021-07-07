@@ -27,6 +27,8 @@ APlayerCharacter::APlayerCharacter()
 	// TriggerCapsule -> OnComponentBeginOverlap.AddDynamic(this, &APlayerCharacter::BeginOverlap);	
 
 	IsJumping = false;
+
+	ItemCollection = 0;
 }
 
 // Called when the game starts or when spawned
@@ -63,7 +65,9 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 void APlayerCharacter::BeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult) 
 {
 	if(OtherActor -> ActorHasTag("Collectible")){
-		UE_LOG(LogTemp, Warning, TEXT("Overlap OK"));
+		OtherActor -> Destroy();
+		ItemCollection++;
+		UE_LOG(LogTemp, Warning, TEXT("Collection: %i"), ItemCollection);
 	}
 }
 
