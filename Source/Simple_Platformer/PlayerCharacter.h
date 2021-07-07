@@ -29,6 +29,9 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	UFUNCTION()
+	void BeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult);
+
 private:
 	UPROPERTY(VisibleAnywhere)
 		USpringArmComponent* SpringArm;
@@ -41,11 +44,7 @@ private:
 	UCapsuleComponent* TriggerCapsule;
 
 	// Movement
-		// Walk
-
-			UPROPERTY(EditAnywhere)
-			bool Prova;
-			
+		// Walk			
 			UFUNCTION()
 			void MoveForward(float AxisValue);
 
@@ -56,6 +55,7 @@ private:
 			UFUNCTION()
 			void JumpInput();
 
+			UPROPERTY(EditAnywhere)
 			bool IsJumping;
 		//
 	//

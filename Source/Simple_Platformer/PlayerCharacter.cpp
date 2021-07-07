@@ -22,7 +22,9 @@ APlayerCharacter::APlayerCharacter()
 	PlayerCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("PlayerCamera"));
 	PlayerCamera -> SetupAttachment(SpringArm);
 
-	Prova = true;	
+	// Capsule component used as a trigger-capsule for collecting items (on overlap with them)
+	TriggerCapsule = GetCapsuleComponent();
+	// TriggerCapsule -> OnComponentBeginOverlap.AddDynamic(this, &APlayerCharacter::BeginOverlap);	
 
 	IsJumping = false;
 }
@@ -32,6 +34,8 @@ void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	// Capsule overlap with items
+	TriggerCapsule -> OnComponentBeginOverlap.AddDynamic(this, &APlayerCharacter::BeginOverlap);
 }
 
 // Called every frame
@@ -39,7 +43,6 @@ void APlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	UE_LOG(LogTemp, Warning, TEXT("Prova: %b"), Prova);
 	if(IsJumping)
 	{
 		Jump();
@@ -55,6 +58,13 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	PlayerInputComponent -> BindAxis("MoveBackward", this, &APlayerCharacter::MoveBackward);
 	PlayerInputComponent -> BindAction("Jump", IE_Pressed, this, &APlayerCharacter::JumpInput);
 	PlayerInputComponent -> BindAction("Jump", IE_Released, this, &APlayerCharacter::JumpInput);
+}
+
+void APlayerCharacter::BeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult) 
+{
+	if(OtherActor -> ActorHasTag("Collectible")){
+		UE_LOG(LogTemp, Warning, TEXT("Overlap OK"));
+	}
 }
 
 void APlayerCharacter::SpringArmSetup(USpringArmComponent* SpringArmComp) 
