@@ -117,10 +117,12 @@ void APlayerCharacter::JumpInput()
 
 // void APlayerCharacter::OnRestart() 
 // {
-// 	GetWorldTimerManager().SetTimer(RestartTimer, this, &APlayerCharacter::LevelRestart, 1.0f, true, 2.0f);
+// 	FTimerHandle RestartTimerHandle;
+// 	GetWorldTimerManager().SetTimer(RestartTimerHandle, this, &APlayerCharacter::LevelRestart, 2.0f, false);
 // }
 
 // void APlayerCharacter::LevelRestart() 
 // {
+// 	this -> Destroy();
 // 	UGameplayStatics::OpenLevel(GetWorld(), FName(UGameplayStatics::GetCurrentLevelName(GetWorld())));
 // }

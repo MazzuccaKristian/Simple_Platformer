@@ -51,8 +51,6 @@ private:
 	// Restart level function
 		// void OnRestart();
 		
-		// FTimerHandle RestartTimer;
-
 		// void LevelRestart();
 	//
 
