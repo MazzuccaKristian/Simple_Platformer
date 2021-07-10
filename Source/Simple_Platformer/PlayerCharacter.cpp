@@ -6,6 +6,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Blueprint/UserWidget.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -27,14 +28,18 @@ APlayerCharacter::APlayerCharacter()
 	// TriggerCapsule -> OnComponentBeginOverlap.AddDynamic(this, &APlayerCharacter::BeginOverlap);	
 
 	IsJumping = false;
-
-	ItemCollection = 0;
 }
 
 // Called when the game starts or when spawned
 void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	// Collectables related variable setup
+	ObtainedItems = 0;
+	TotalItems = 0;
+	CalculatedTotal = 0;
+	IsCalculated = false;
 	
 	// Capsule overlap with items
 	TriggerCapsule -> OnComponentBeginOverlap.AddDynamic(this, &APlayerCharacter::BeginOverlap);
@@ -66,7 +71,7 @@ void APlayerCharacter::BeginOverlap(UPrimitiveComponent* OverlappedComponent, AA
 {
 	if(OtherActor -> ActorHasTag("Collectible")){
 		OtherActor -> Destroy();
-		ItemCollection++;
+		ObtainedItems++;
 	} else if(OtherActor -> ActorHasTag("DeathZone")){
 		// OnRestart();
 		UGameplayStatics::OpenLevel(GetWorld(), FName(UGameplayStatics::GetCurrentLevelName(GetWorld())));

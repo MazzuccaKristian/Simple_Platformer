@@ -32,6 +32,20 @@ public:
 	UFUNCTION()
 	void BeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult);
 
+	// Collectables item [setup in blueprint]
+		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int32 TotalItems;
+
+		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int32 CalculatedTotal;
+
+		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool IsCalculated;
+
+		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int32 ObtainedItems;
+	//
+
 private:
 
 	// Character components
@@ -45,8 +59,6 @@ private:
 
 		UCapsuleComponent* TriggerCapsule;
 	//
-
-	int32 ItemCollection;
 
 	// Restart level function
 		// void OnRestart();
