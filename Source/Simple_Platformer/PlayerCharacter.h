@@ -33,16 +33,16 @@ public:
 	void BeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult);
 
 	// Collectables item [setup in blueprint]
-		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collectable")
 		int32 TotalItems;
 
-		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collectable")
 		int32 CalculatedTotal;
 
-		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collectable")
 		bool IsCalculated;
 
-		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collectable")
 		int32 ObtainedItems;
 	//
 
