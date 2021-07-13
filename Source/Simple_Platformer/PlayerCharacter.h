@@ -32,18 +32,19 @@ public:
 	UFUNCTION()
 	void BeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult);
 
+	// ! Will be removed. Now setted up in GameMode and with BluePrint.
 	// Collectables item [setup in blueprint]
-		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collectable")
-		int32 TotalItems;
+		// UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collectable")
+		// int32 TotalItems;
 
-		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collectable")
-		int32 CalculatedTotal;
+		// UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collectable")
+		// int32 CalculatedTotal;
 
-		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collectable")
-		bool IsCalculated;
+		// UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collectable")
+		// bool IsCalculated;
 
-		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collectable")
-		int32 ObtainedItems;
+		// UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collectable")
+		// int32 ObtainedItems;
 	//
 
 private:

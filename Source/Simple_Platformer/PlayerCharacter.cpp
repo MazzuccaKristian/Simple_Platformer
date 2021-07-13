@@ -7,6 +7,8 @@
 #include "Camera/CameraComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Blueprint/UserWidget.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "PlatformerGameMode.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -25,7 +27,6 @@ APlayerCharacter::APlayerCharacter()
 
 	// Capsule component used as a trigger-capsule for collecting items (on overlap with them)
 	TriggerCapsule = GetCapsuleComponent();
-	// TriggerCapsule -> OnComponentBeginOverlap.AddDynamic(this, &APlayerCharacter::BeginOverlap);	
 
 	IsJumping = false;
 }
@@ -35,11 +36,12 @@ void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
+	// TODO: move variables in GameMode avoiding PlayerCharacter.
 	// Collectables related variable setup
-	ObtainedItems = 0;
-	TotalItems = 0;
-	CalculatedTotal = 0;
-	IsCalculated = false;
+	// ObtainedItems = 0;
+	// TotalItems = 0;
+	// CalculatedTotal = 0;
+	// IsCalculated = false;
 	
 	// Capsule overlap with items
 	TriggerCapsule -> OnComponentBeginOverlap.AddDynamic(this, &APlayerCharacter::BeginOverlap);
@@ -71,7 +73,8 @@ void APlayerCharacter::BeginOverlap(UPrimitiveComponent* OverlappedComponent, AA
 {
 	if(OtherActor -> ActorHasTag("Collectible")){
 		OtherActor -> Destroy();
-		ObtainedItems++;
+		// ObtainedItems++;
+		APlatformerGameMode::ItemCollected();
 	} else if(OtherActor -> ActorHasTag("DeathZone")){
 		// OnRestart();
 		UGameplayStatics::OpenLevel(GetWorld(), FName(UGameplayStatics::GetCurrentLevelName(GetWorld())));
