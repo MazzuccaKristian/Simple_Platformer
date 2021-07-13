@@ -30,6 +30,11 @@ int32 APlatformerGameMode::GetTotalCollectables()
     return TotalCollectables.Num();
 }
 
+void APlatformerGameMode::ItemCollected() 
+{
+    ObtainedItems++;
+}
+
 // void APlatformerGameMode::SetupHUDVariables() 
 // {
     

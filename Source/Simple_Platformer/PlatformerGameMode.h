@@ -37,5 +37,7 @@ public:
 
 		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collectable")
 			int32 ObtainedItems;
+
+		void ItemCollected();
 	//
 };
