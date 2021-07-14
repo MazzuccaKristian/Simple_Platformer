@@ -30,9 +30,27 @@ int32 APlatformerGameMode::GetTotalCollectables()
     return TotalCollectables.Num();
 }
 
+int32 APlatformerGameMode::SetupObtainedCollectables() 
+{
+    ObtainedItems = 0;
+    return ObtainedItems;
+}
+
 void APlatformerGameMode::ItemCollected() 
 {
     ObtainedItems++;
+}
+
+void APlatformerGameMode::PlayerDied() 
+{
+    FTimerHandle RespawnTimer;
+    GetWorldTimerManager().SetTimer(RespawnTimer, this, &APlatformerGameMode::LevelReset, TimerValue, false);
+}
+
+void APlatformerGameMode::LevelReset() 
+{
+    FName LevelName = FName(UGameplayStatics::GetCurrentLevelName(GetWorld()));
+    UGameplayStatics::OpenLevel(GetWorld(), LevelName);
 }
 
 // void APlatformerGameMode::SetupHUDVariables() 

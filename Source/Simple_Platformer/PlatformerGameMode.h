@@ -23,6 +23,9 @@ public:
 		UFUNCTION(BlueprintCallable)
 			int32 GetTotalCollectables();
 
+		UFUNCTION(BlueprintCallable)
+			int32 SetupObtainedCollectables();
+
 		// UFUNCTION(BlueprintCallable)
 		// 	void SetupHUDVariables();
 
@@ -39,5 +42,16 @@ public:
 			int32 ObtainedItems;
 
 		void ItemCollected();
+	//
+
+	// Level reset on player's death
+		UPROPERTY(EditAnywhere)
+			float TimerValue = 3.0f;
+
+		UFUNCTION()
+			void PlayerDied();
+
+		UFUNCTION()
+			void LevelReset();
 	//
 };
