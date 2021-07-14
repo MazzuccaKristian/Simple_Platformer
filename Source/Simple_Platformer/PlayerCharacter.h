@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "PlatformerGameMode.h"
 #include "PlayerCharacter.generated.h"
 
 class USpringArmComponent;
@@ -43,8 +44,8 @@ public:
 		// UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collectable")
 		// bool IsCalculated;
 
-		// UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collectable")
-		// int32 ObtainedItems;
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collectable")
+		int32 ObtainedItems;
 	//
 
 private:
@@ -83,4 +84,6 @@ private:
 			bool IsJumping;
 		//
 	//
+
+	APlatformerGameMode* GameMode;
 };

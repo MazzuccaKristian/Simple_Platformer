@@ -36,12 +36,15 @@ void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// TODO: move variables in GameMode avoiding PlayerCharacter.
+	GameMode = (APlatformerGameMode*)GetWorld() -> GetAuthGameMode();
+
+	// ! PROTOTYPE
+	// TODO: the HUD will be setted up here.
+	GameMode -> SetupObtainedCollectables();
+
+	// TODO: Move score handles in GameMode and avoid player character.
 	// Collectables related variable setup
-	// ObtainedItems = 0;
-	// TotalItems = 0;
-	// CalculatedTotal = 0;
-	// IsCalculated = false;
+	ObtainedItems = 0;
 	
 	// Capsule overlap with items
 	TriggerCapsule -> OnComponentBeginOverlap.AddDynamic(this, &APlayerCharacter::BeginOverlap);
@@ -74,10 +77,9 @@ void APlayerCharacter::BeginOverlap(UPrimitiveComponent* OverlappedComponent, AA
 	if(OtherActor -> ActorHasTag("Collectible")){
 		OtherActor -> Destroy();
 		// ObtainedItems++;
-		APlatformerGameMode::ItemCollected();
+		GameMode -> ItemCollected();
 	} else if(OtherActor -> ActorHasTag("DeathZone")){
-		// OnRestart();
-		UGameplayStatics::OpenLevel(GetWorld(), FName(UGameplayStatics::GetCurrentLevelName(GetWorld())));
+		GameMode -> PlayerDied();
 	}
 }
 
@@ -122,15 +124,3 @@ void APlayerCharacter::JumpInput()
 		IsJumping = true;
 	}
 }
-
-// void APlayerCharacter::OnRestart() 
-// {
-// 	FTimerHandle RestartTimerHandle;
-// 	GetWorldTimerManager().SetTimer(RestartTimerHandle, this, &APlayerCharacter::LevelRestart, 2.0f, false);
-// }
-
-// void APlayerCharacter::LevelRestart() 
-// {
-// 	this -> Destroy();
-// 	UGameplayStatics::OpenLevel(GetWorld(), FName(UGameplayStatics::GetCurrentLevelName(GetWorld())));
-// }
