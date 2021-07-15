@@ -73,8 +73,11 @@ void APlayerCharacter::BeginOverlap(UPrimitiveComponent* OverlappedComponent, AA
 	if(OtherActor -> ActorHasTag("Collectible")){
 		OtherActor -> Destroy();
 		GameMode -> ItemCollected();
-	} else if(OtherActor -> ActorHasTag("DeathZone")){
+	} else if(OtherActor -> ActorHasTag("DeathZone") || OtherActor -> ActorHasTag("Body")){
 		GameMode -> PlayerDied();
+	} else if(OtherActor -> ActorHasTag("Head")){
+		// GameMode -> EnemyDefeated(OtherActor);
+		OtherActor -> Destroy();
 	}
 }
 
