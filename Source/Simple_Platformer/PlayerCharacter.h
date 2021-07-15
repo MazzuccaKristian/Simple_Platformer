@@ -33,21 +33,6 @@ public:
 	UFUNCTION()
 	void BeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult);
 
-	// ! Will be removed. Now setted up in GameMode and with BluePrint.
-	// Collectables item [setup in blueprint]
-		// UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collectable")
-		// int32 TotalItems;
-
-		// UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collectable")
-		// int32 CalculatedTotal;
-
-		// UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collectable")
-		// bool IsCalculated;
-
-		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collectable")
-		int32 ObtainedItems;
-	//
-
 private:
 
 	// Character components
@@ -60,12 +45,6 @@ private:
 		void SpringArmSetup(USpringArmComponent* SpringArmComp);
 
 		UCapsuleComponent* TriggerCapsule;
-	//
-
-	// Restart level function
-		// void OnRestart();
-		
-		// void LevelRestart();
 	//
 
 	// Movement

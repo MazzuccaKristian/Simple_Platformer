@@ -41,10 +41,6 @@ void APlayerCharacter::BeginPlay()
 	// ! PROTOTYPE
 	// TODO: the HUD will be setted up here.
 	GameMode -> SetupObtainedCollectables();
-
-	// TODO: Move score handles in GameMode and avoid player character.
-	// Collectables related variable setup
-	ObtainedItems = 0;
 	
 	// Capsule overlap with items
 	TriggerCapsule -> OnComponentBeginOverlap.AddDynamic(this, &APlayerCharacter::BeginOverlap);
@@ -76,7 +72,6 @@ void APlayerCharacter::BeginOverlap(UPrimitiveComponent* OverlappedComponent, AA
 {
 	if(OtherActor -> ActorHasTag("Collectible")){
 		OtherActor -> Destroy();
-		// ObtainedItems++;
 		GameMode -> ItemCollected();
 	} else if(OtherActor -> ActorHasTag("DeathZone")){
 		GameMode -> PlayerDied();
