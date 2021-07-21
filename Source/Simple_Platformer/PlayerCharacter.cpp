@@ -3,6 +3,7 @@
 
 #include "PlayerCharacter.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/BoxComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -68,19 +69,11 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	PlayerInputComponent -> BindAction("Jump", IE_Released, this, &APlayerCharacter::JumpInput);
 }
 
-void APlayerCharacter::BeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult) 
-{
-	if(OtherActor -> ActorHasTag("Collectible")){
-		OtherActor -> Destroy();
-		GameMode -> ItemCollected();
-	} else if(OtherActor -> ActorHasTag("DeathZone") || OtherActor -> ActorHasTag("Body")){
-		GameMode -> PlayerDied();
-	} else if(OtherActor -> ActorHasTag("Head")){
-		// GameMode -> EnemyDefeated(OtherActor);
-		OtherActor -> Destroy();
-	}
-}
-
+/**
+ * @brief This function sets up the spring arm component for the player camera
+ * 
+ * @param SpringArmComp 
+ */
 void APlayerCharacter::SpringArmSetup(USpringArmComponent* SpringArmComp) 
 {
 	SpringArmComp -> bEnableCameraLag = true;
@@ -90,6 +83,11 @@ void APlayerCharacter::SpringArmSetup(USpringArmComponent* SpringArmComp)
 	SpringArmComp -> TargetArmLength = 600.0f;
 }
 
+/**
+ * @brief Forward movement
+ * 
+ * @param AxisValue Actual value used to change velocity
+ */
 void APlayerCharacter::MoveForward(float AxisValue) 
 {
 	if(Controller != nullptr && AxisValue != 0.0f){
@@ -101,6 +99,11 @@ void APlayerCharacter::MoveForward(float AxisValue)
 
 }
 
+/**
+ * @brief Backward movement
+ * 
+ * @param AxisValue Actual value used to change velocity
+ */
 void APlayerCharacter::MoveBackward(float AxisValue) 
 {
 	if(Controller != nullptr && AxisValue != 0.0f)
@@ -112,6 +115,10 @@ void APlayerCharacter::MoveBackward(float AxisValue)
 	}
 }
 
+/**
+ * @brief Function used to sets up the jump input
+ * 
+ */
 void APlayerCharacter::JumpInput() 
 {
 	if(IsJumping)
@@ -120,5 +127,48 @@ void APlayerCharacter::JumpInput()
 	} else
 	{
 		IsJumping = true;
+	}
+}
+
+/**
+ * @brief Checks player's overlaps with other actors in game.
+ * 
+ * @param OverlappedComponent Player character's component that begins the overlap with an actor
+ * @param OtherActor Actor overlapped with the player character.
+ * @param OtherComp Actor's component overlapped with the player character.
+ * @param OtherBodyIndex 
+ * @param bFromSweep 
+ * @param SweepResult 
+ */
+void APlayerCharacter::BeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult) 
+{
+	if(OtherActor -> ActorHasTag("Collectible")){
+		// Here if the player overlapped with a collectible item
+		OtherActor -> Destroy();
+		GameMode -> ItemCollected();
+	} else if(OtherActor -> ActorHasTag("DeathZone")){
+		// Here if the player overlapped with the death zone
+		GameMode -> PlayerDied();
+	} else if(OtherActor -> ActorHasTag("Enemy")){
+		// Here if the player overlapped with an enemy
+		APlayerCharacter::EnemyCollision(OtherActor, OtherComp);
+	}
+}
+
+/**
+ * @brief Checks which component the player overlapped with.
+ * 		  If the player overlapped with the enemy's head, then the enemy has been defeated.
+ * 		  If the player overlapped with the enemy's body, then the player has been defeated and the game ends.
+ * @param EnemyActor Actor overlapped with the player.
+ * @param CollidedComponent Actor's component overlapped with the player.
+ */
+void APlayerCharacter::EnemyCollision(AActor* EnemyActor, UPrimitiveComponent* CollidedComponent) 
+{
+	if(EnemyActor != nullptr){
+		if(CollidedComponent -> IsA(UBoxComponent::StaticClass())){
+			EnemyActor -> Destroy();
+		} else if(CollidedComponent -> IsA(UCapsuleComponent::StaticClass())){
+			GameMode -> PlayerDied();
+		}
 	}
 }
