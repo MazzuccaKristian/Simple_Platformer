@@ -64,5 +64,10 @@ private:
 		//
 	//
 
+	// Character's collision with enemy
+		UFUNCTION()
+			void EnemyCollision(AActor* EnemyActor, UPrimitiveComponent* CollidedComponent);
+	//
+
 	APlatformerGameMode* GameMode;
 };
