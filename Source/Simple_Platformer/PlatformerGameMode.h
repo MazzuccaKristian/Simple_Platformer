@@ -7,8 +7,8 @@
 #include "PlatformerGameMode.generated.h"
 
 /**
- * 
- */
+*
+**/
 UCLASS()
 class SIMPLE_PLATFORMER_API APlatformerGameMode : public AGameModeBase
 {
@@ -16,8 +16,19 @@ class SIMPLE_PLATFORMER_API APlatformerGameMode : public AGameModeBase
 
 public:
 
-	UFUNCTION(BlueprintCallable)
-	void GetPlatforms();
+	//Platforms' movement
+		UFUNCTION(BlueprintCallable)
+			void SetupPlatforms();
+
+		UFUNCTION()
+			void SetupMovement(AActor* Platform);
+
+		UFUNCTION()
+			void SetupHorizontalMovement(AActor* Platform);
+
+		UFUNCTION()
+			void SetupVerticalMovement(AActor* Platform);
+	//
 
 	// Collectables
 		UFUNCTION(BlueprintCallable)
@@ -25,9 +36,6 @@ public:
 
 		UFUNCTION(BlueprintCallable)
 			int32 SetupObtainedCollectables();
-
-		// UFUNCTION(BlueprintCallable)
-		// 	void SetupHUDVariables();
 
 		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collectable")
 			int32 TotalItems;
@@ -46,7 +54,7 @@ public:
 
 	// Level reset on player's death
 		UPROPERTY(EditAnywhere)
-			float TimerValue = 3.0f;
+			float TimerValue = 2.0f;
 
 		UFUNCTION()
 			void PlayerDied();
