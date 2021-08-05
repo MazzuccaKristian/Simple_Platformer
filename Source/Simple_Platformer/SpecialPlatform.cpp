@@ -2,9 +2,7 @@
 
 
 #include "SpecialPlatform.h"
-#include "Components/BrushComponent.h"
 #include "Kismet/GameplayStatics.h"
-#include "PlatformerGameMode.h"
 
 // Sets default values
 ASpecialPlatform::ASpecialPlatform()
@@ -19,14 +17,47 @@ void ASpecialPlatform::BeginPlay()
 {
 	Super::BeginPlay();
 
-	GameMode = (APlatformerGameMode*)GetWorld() -> GetAuthGameMode();
+	if(this -> ActorHasTag("Vertical")){
+		NeededMovement = 1;
+	}else if(this -> ActorHasTag("Horizontal")){
+		NeededMovement = 2;
+	}else{
+		NeededMovement = 0;
+	}
+	
+	InitialPosition = this -> GetActorLocation();
 
-	GameMode -> SetupPlatforms();
+	FinalPosition = ASpecialPlatform::SetFinalPosition(NeededMovement, InitialPosition);
 }
 
 // Called every frame
 void ASpecialPlatform::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+}
 
+/**
+ * @brief Setup the final position vector. Used for platform's movement.
+ * 
+ * @param Movement Specifies the needed movement for the platform.
+ * @param StartingPosition Platform's initial position in the level.
+ * @return FVector Platform's final position in the level.
+ */
+FVector ASpecialPlatform::SetFinalPosition(int32 Movement, FVector StartingPosition) 
+{
+	FVector FinalVector;
+	switch(Movement){
+		case 0:
+			FinalVector = StartingPosition;
+			break;
+
+		case 1:
+			FinalVector = FVector(StartingPosition.X, StartingPosition.Y, (StartingPosition.Z + 100.0f));
+			break;
+
+		case 2:
+			FinalVector = FVector(StartingPosition.X, (StartingPosition.Y + 100.0f), StartingPosition.Z);
+			break;
+	}
+	return FinalVector;
 }
