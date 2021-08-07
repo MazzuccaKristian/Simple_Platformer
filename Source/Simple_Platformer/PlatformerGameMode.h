@@ -15,21 +15,6 @@ class SIMPLE_PLATFORMER_API APlatformerGameMode : public AGameModeBase
 	GENERATED_BODY()
 
 public:
-
-	//Platforms' movement
-		UFUNCTION(BlueprintCallable)
-			void SetupPlatforms();
-
-		UFUNCTION()
-			void SetupMovement(AActor* Platform);
-
-		UFUNCTION()
-			void SetupHorizontalMovement(AActor* Platform);
-
-		UFUNCTION()
-			void SetupVerticalMovement(AActor* Platform);
-	//
-
 	// Collectables
 		UFUNCTION(BlueprintCallable)
 			int32 GetTotalCollectables();
@@ -59,7 +44,7 @@ public:
 		UFUNCTION()
 			void PlayerDied();
 
-		UFUNCTION()
+		UFUNCTION(BlueprintCallable)
 			void LevelReset();
 	//
 };
